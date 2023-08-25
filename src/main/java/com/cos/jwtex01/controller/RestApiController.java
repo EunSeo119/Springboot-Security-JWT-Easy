@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class RestApiController {
 	
 	private final UserRepository userRepository;
-	private final BCryptPasswordEncoder bCryptPasswordEncoder;
+	private final BCryptPasswordEncoder bCryptPasswordEncoder;	// 어디선가 @Bean 으로 IoC에 등록해줘서 주입함.
 	
 	// 모든 사람이 접근 가능
 	@GetMapping("home")
@@ -59,9 +59,9 @@ public class RestApiController {
 	
 	@PostMapping("join")
 	public String join(@RequestBody User user) {
-		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));	// 암호화 해줘야 시큐리티로 로그인 가능함!
 		user.setRoles("ROLE_USER");
-		userRepository.save(user);
+		userRepository.save(user);	// 이것만 있으면 회원가입은 됨. 하지만 시큐리티로 로그인 할 수 없음. 이유는 패스워드가 암호화가 안되었기 때문!
 		return "회원가입완료";
 	}
 	
