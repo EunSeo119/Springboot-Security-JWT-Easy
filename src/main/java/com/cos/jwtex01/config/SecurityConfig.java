@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.addFilter(new JwtAuthenticationFilter(authenticationManager()))
 				.addFilter(new JwtAuthorizationFilter(authenticationManager(), userRepository))
 				.authorizeRequests()
-				.antMatchers("/api/v1/user/**")
+				.antMatchers("/api/v1/user/**")	// 인증만 되면 들어갈 수 있는 주소!
 				.access("hasRole('ROLE_USER') or hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
 				.antMatchers("/api/v1/manager/**")
 					.access("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
