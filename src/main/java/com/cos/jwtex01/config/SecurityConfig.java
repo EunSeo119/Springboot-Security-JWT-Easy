@@ -18,6 +18,7 @@ import com.cos.jwtex01.repository.UserRepository;
 
 @Configuration
 @EnableWebSecurity // 시큐리티 활성화 -> 기본 스프링 필터체인에 등록
+@EnableGlobalMethodSecurity(securedEnabled=true, prePostEnabled=true)	// secured 어노테이션 활성화, preAuthorize, postAuthorize(이건 잘 안씀) 어노테이션 활성화 => 얘네는 글로벌하게 말고 메서드 하나하나에 걸고 싶을 때 씀! (글로벌하게 걸고 싶으면 아래 configure 메서드에 검)
 public class SecurityConfig extends WebSecurityConfigurerAdapter{	
 	
 	@Autowired

@@ -64,6 +64,24 @@ public class RestApiController {
 		userRepository.save(user);	// 이것만 있으면 회원가입은 됨. 하지만 시큐리티로 로그인 할 수 없음. 이유는 패스워드가 암호화가 안되었기 때문!
 		return "회원가입완료";
 	}
+
+	// ======== 강의 들으면서 추가사항 ==========
+
+	// 얘네는 글로벌하게 말고 메서드 하나하나에 걸고 싶을 때 씀!
+
+	@Secured("ROLE_ADMIN")	// 하나만 걸고 싶을 때!
+	@GetMapping("/info")
+	public @ResponseBody String info() {
+		// @EnableGlobalMethodSecurity(securedEnabled=true) 이걸 해주므로써 시큐리티가 적용된당!(로그인 해줘야 접근 가능해진다)
+		return "개인정보";
+	}
+
+	@PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")	// 여러개 걸고 싶을때!, data라는 메서드가 실행되기 직전에 실행됨!
+	@GetMapping("/data")
+	public @ResponseBody String data() {
+		// 위 두개의 권한이 있을 때 들어와 진다!(manager, admin)
+		return "데이터정보";
+	}
 	
 }
 
