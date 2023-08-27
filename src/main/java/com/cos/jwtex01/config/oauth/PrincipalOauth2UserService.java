@@ -27,7 +27,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
         System.out.println("getAttributes: " + oauth2User.getAttributes());    // 사실 이 정보만 있으면 됨!!(포함되어 있는 정보들: sub(pk), name(이름), given_name(이름), family_name(성), picture(프로필 사진), email(이메일), email_verified(만료되었나?), locale(한국))
         
         // 회원가입을 강제로 진행해볼 예정
-        String provider = userRequest.getClientRegistration().getClientId();    // google
+        String provider = userRequest.getClientRegistration().getRegistrationId();    // google
         String providerId = oauth2User.getAttribute("sub");
         String username = provider+"_"+providerId;  // google_109742856182916427686
         String password = bCryptPasswordEncoder.encode("겟인데어");
