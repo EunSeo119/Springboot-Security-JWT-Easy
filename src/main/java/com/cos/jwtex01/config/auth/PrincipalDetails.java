@@ -18,7 +18,8 @@ import com.cos.jwtex01.model.User;
 // => 그래서 꺼내 쓸 때 Security Session을 꺼내면 Authentication 위치가 나오고 이 안에서 UserDetails 객체를 꺼내면 user object에 접근할 수 있음!
 // PrincipalDetails 를 Authentication에 넣을 수 있고, Authentication 객체를 만들어서 Session에 넣음
 
-public class PrincipalDetails implements UserDetails{
+@Data
+public class PrincipalDetails implements UserDetails, OAuth2User{
 
 	private User user;  // 콤포지션
 

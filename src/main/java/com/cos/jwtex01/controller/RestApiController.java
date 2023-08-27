@@ -82,6 +82,27 @@ public class RestApiController {
 		// 위 두개의 권한이 있을 때 들어와 진다!(manager, admin)
 		return "데이터정보";
 	}
+
+	@GetMapping("/test/login")
+	public @ResponseBody String testLogin(Authentication authentication, @AuthenticationPrincipal PrincipalDetails userDetails) {	// DI(의존성 주입)
+		System.out.println("/test/login ===============");
+		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();	// 에러뜸(그래서 밑에 메서드 변경해서 추가)
+		System.out.println("authentication:"+principalDetails.getUser());	// User 정보 확인 가능
+		
+		System.out.println("userDetails: "+userDetails.getUser());	// 세션 정보 접근 가능!
+		return "세션 정보 확인하기";
+	}
+
+	@GetMapping("/test/oauth/login")
+	public @ResponseBody String testOAuthLogin(Authentication authentication,
+												@AuthenticationPrincipal OAuth2User oauth) {	// DI(의존성 주입)
+		System.out.println("/test/oauth/login ===============");
+		OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal();
+		System.out.println("authentication:"+oauth2User.getAttributes());	// User 정보 확인 가능
+		System.out.println("oauth2User:"+oauth.getAttributes());
+		// 위 두개의 값 똑같이 나옴!
+		return "OAuth 세션 정보 확인하기";
+	}
 	
 }
 
