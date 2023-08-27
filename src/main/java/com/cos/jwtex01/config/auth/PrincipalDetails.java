@@ -22,9 +22,17 @@ import com.cos.jwtex01.model.User;
 public class PrincipalDetails implements UserDetails, OAuth2User{
 
 	private User user;  // 콤포지션
+    private Map<String, Object> attributes;
 
+    // 일반 로그인 할 때 사용하는 생성자
     public PrincipalDetails(User user){
         this.user = user;
+    }
+
+    // OAuth 로그인 할 때 사용하는 생성자
+    public PrincipalDetails(User user, Map<String, Object> attributes) {
+        this.user = user;
+        this.attributes = attributes;
     }
 
     public User getUser() {
@@ -74,5 +82,16 @@ public class PrincipalDetails implements UserDetails, OAuth2User{
         	authorities.add(()->{ return r;});
         });
         return authorities;
+    }
+
+    @Override
+    public Map<String, Object> getAttributes() {
+        return attributes;
+    }
+
+    @Override
+    public String getName() {
+        // return attributes.get("sub");    // 딱히 안중요함
+        return null;
     }
 }
